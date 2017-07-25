@@ -1,43 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ClientPropertiesManager">
-    <properties class="javax.swing.AbstractButton">
-      <property name="hideActionText" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JComponent">
-      <property name="html.disable" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JEditorPane">
-      <property name="JEditorPane.w3cLengthUnits" class="java.lang.Boolean" />
-      <property name="JEditorPane.honorDisplayProperties" class="java.lang.Boolean" />
-      <property name="charset" class="java.lang.String" />
-    </properties>
-    <properties class="javax.swing.JList">
-      <property name="List.isFileList" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JPasswordField">
-      <property name="JPasswordField.cutCopyAllowed" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JSlider">
-      <property name="Slider.paintThumbArrowShape" class="java.lang.Boolean" />
-      <property name="JSlider.isFilled" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JTable">
-      <property name="Table.isFileList" class="java.lang.Boolean" />
-      <property name="JTable.autoStartsEdit" class="java.lang.Boolean" />
-      <property name="terminateEditOnFocusLost" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JToolBar">
-      <property name="JToolBar.isRollover" class="java.lang.Boolean" />
-    </properties>
-    <properties class="javax.swing.JTree">
-      <property name="JTree.lineStyle" class="java.lang.String" />
-    </properties>
-    <properties class="javax.swing.text.JTextComponent">
-      <property name="caretAspectRatio" class="java.lang.Double" />
-      <property name="caretWidth" class="java.lang.Integer" />
-    </properties>
-  </component>
   <component name="CompilerConfiguration">
     <resourceExtensions />
     <wildcardResourcePatterns>
@@ -76,8 +38,10 @@
         <entry key="$PROJECT_DIR$/../bam-consumer" value="2927379054000" />
         <entry key="$PROJECT_DIR$/../browser_agent_selenium_performance" value="1486071243000" />
         <entry key="$PROJECT_DIR$/../cassandra-writer" value="1464897780000" />
+        <entry key="$PROJECT_DIR$/../chapter3" value="2997361102000" />
         <entry key="$PROJECT_DIR$/../chartdata" value="4430412441000" />
         <entry key="$PROJECT_DIR$/../dirac_browser_consumer" value="2997163000000" />
+        <entry key="$PROJECT_DIR$" value="2997676482000" />
         <entry key="$PROJECT_DIR$/../query-service" value="1464900652000" />
         <entry key="$PROJECT_DIR$/../querypack" value="2927267138000" />
       </map>
@@ -89,9 +53,9 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="createEmptyContentRootDirectories" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="/usr/local/opt/gradle/libexec" />
         <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
@@ -126,8 +90,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/chapter3_test.iml" filepath="$PROJECT_DIR$/.idea/modules/chapter3_test.iml" group="chapter3" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -222,6 +186,9 @@
       <listeners />
       <method />
     </configuration>
+  </component>
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Gradle: junit:junit:4.11">
