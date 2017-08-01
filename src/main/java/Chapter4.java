@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -48,14 +49,27 @@ class Order {
 }
 
 class Register {
-    ArrayList<Order> orders = new ArrayList<Order>();
+    private ArrayList<Order> orders = new ArrayList<Order>();
 
-    public void addOrder(Order order) {
-
+    synchronized void addOrder(Order order) {
+        orders.add(order);
     }
 
-    public int close() {
+    int close() {
+        ArrayList<Order> closedOrders;
 
+        synchronized (this) {
+            closedOrders = (ArrayList<Order>)orders.clone();
+            orders = new ArrayList<Order>();
+        }
+
+        int sum = 0;
+
+        for (Order o : closedOrders) {
+            sum += o.getTotalInPennies();
+        }
+
+        return sum;
     }
 }
 
