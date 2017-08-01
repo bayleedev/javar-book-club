@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class Item {
 
@@ -60,34 +61,47 @@ class Register {
 
 class Restaurant implements DistributedCashRegister2 {
 
-    HashMap<Integer, Order> openOrders = new HashMap<Integer, Order>();
+    private AtomicInteger currentOrderId = new AtomicInteger(0);
+    private HashMap<Integer, Order> openOrders = new HashMap<Integer, Order>();
+    private ArrayList<Register> registers = new ArrayList<Register>();
 
-    // Holds closed cash orders
-    ArrayList<Register> registers = new ArrayList<Register>();
+    public void Restaurant (int numberOfRegisters) {
+        synchronized (registers) {
+            for (int i = 0; i < numberOfRegisters; i++) {
+                registers.add(new Register());
+            }
+        }
+    }
 
     public int openOrder() {
-        return 0;
+        int nextOrderId = currentOrderId.incrementAndGet();
+        synchronized (openOrders) {
+            openOrders.put(nextOrderId, new Order());
+        }
+        return nextOrderId;
     }
 
     public void addItem(int quantity, String name, int perUnitPennyCost, int orderId) {
-        openOrders.get(orderId).addItem(quantity, name, perUnitPennyCost);
+        getOpenOrder(orderId).addItem(quantity, name, perUnitPennyCost);
     }
 
     public void removeItem(int quantity, String name, int perUnitPennyCost, int orderId) {
-        openOrders.get(orderId).removeItem(quantity, name, perUnitPennyCost);
-
+        getOpenOrder(orderId).removeItem(quantity, name, perUnitPennyCost);
     }
 
     public int totalOrderInPennies(int orderId) {
-        return openOrders.get(orderId).getTotalInPennies();
+        return getOpenOrder(orderId).getTotalInPennies();
     }
 
     public int closeOrder(int orderId, PaymentMethod paymentMethod) {
-        Order order = openOrders.get(orderId);
-        openOrders.remove(orderId);
+        Order order;
+        synchronized (openOrders) {
+            order = openOrders.get(orderId);
+            openOrders.remove(orderId);
+        }
         if (paymentMethod == PaymentMethod.CASH) {
             int register = magic(orderId);
-            registers.get(register).addOrder(order);
+            getRegister(register).addOrder(order);
         }
         return order.getTotalInPennies();
     }
@@ -98,5 +112,25 @@ class Restaurant implements DistributedCashRegister2 {
             total += register.close();
         }
         return total;
+    }
+
+    private Order getOpenOrder (int orderId) {
+        synchronized (openOrders) {
+            return openOrders.get(orderId);
+        }
+    }
+
+    private Register getRegister (int registerId) {
+        synchronized (registers) {
+            return registers.get(registerId);
+        }
+    }
+
+    private int magic (int orderId) {
+        int registerCount;
+        synchronized (registers) {
+            registerCount = registers.size();
+        }
+        return orderId % registerCount;
     }
 }
