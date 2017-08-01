@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class Item {
@@ -18,15 +18,18 @@ class Item {
         return 0; // do something with name and perUnitPennyCost
     }
 
+    public int getPerUnitPennyCost () {
+        return perUnitPennyCost;
+    }
+
 }
 
 class Order {
 
     // value is quantity
-    HashMap<Item, Integer> items = new HashMap<Item, Integer>();
+    private HashMap<Item, Integer> items = new HashMap<Item, Integer>();
 
-
-    public void addItem(int quantity, String name, int perUnitPennyCost) {
+    public synchronized void addItem(int quantity, String name, int perUnitPennyCost) {
         Item key = new Item(name, perUnitPennyCost);
         if (items.containsKey(key)) {
             items.put(key, items.get(key) + quantity);
@@ -35,16 +38,21 @@ class Order {
         }
     }
 
-
-    public void removeItem(int quantity, String name, int perUnitPennyCost) {
+    public synchronized void removeItem(int quantity, String name, int perUnitPennyCost) {
         Item key = new Item(name, perUnitPennyCost);
         if (items.containsKey(key)) {
             items.put(key, items.get(key) - quantity);
         }
     }
 
-    public int getTotalInPennies() {
-        return 0;
+    public synchronized int getTotalInPennies() {
+        int sum = 0;
+        for (Map.Entry<Item, Integer> keyValue : items.entrySet()) {
+            Item item = keyValue.getKey();
+            int quantity = keyValue.getValue();
+            sum += (item.getPerUnitPennyCost() * quantity);
+        }
+        return sum;
     }
 }
 
